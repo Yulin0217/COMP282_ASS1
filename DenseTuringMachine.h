@@ -1,5 +1,5 @@
-#ifndef DENSE_TURING_MACHINE_H
-#define DENSE_TURING_MACHINE_H
+#ifndef DENSETURINGMACHINE_H_
+#define DENSETURINGMACHINE_H_
 
 #include "TuringMachine.h"
 #include <vector>
@@ -15,5 +15,4 @@ private:
     std::vector<TuringMachineState> allStates;
     std::vector<std::vector<TuringMachineState*>> stateMatrix;
 };
-
 #endif
