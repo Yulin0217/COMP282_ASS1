@@ -53,7 +53,7 @@ bool compareState(TuringMachineState s1, TuringMachineState s2) {
 	return (s1.getCurrentState()<s2.getCurrentState())||(s1.getCurrentState()==s2.getCurrentState())&&s1.getCurrentContent()<s2.getCurrentContent();
 }
 
-/*
+
 void checkTuringMachine(TuringMachine* t) {
 	TuringMachineState s1(1,2,3,4,"->");
 	t->add(s1);
@@ -67,6 +67,7 @@ void checkTuringMachine(TuringMachine* t) {
 	sort(vec.begin(),vec.end(),compareState);
 	for (auto s: *t->getAll()) cout << s;
 }
+/*
 void checkTape(TuringTape t) {
 	cout<<t.moveLeft();
 	for (int i=0;i<10;i++) {
@@ -114,11 +115,12 @@ int main() {
     if (task == 1) checkFirst();
     if (task == 2) checkSecond();
     if (task==3) checkThird();
-    /*
+    
     if (task==4) {
         DenseTuringMachine d(10,10);
         checkTuringMachine(&d);
     }
+    /*
     if (task==5) checkFifth();
     if (task==6) checkMenu();
     if (task==7) checkSeventh();
