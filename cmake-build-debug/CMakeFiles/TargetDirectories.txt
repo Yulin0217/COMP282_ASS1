@@ -1,0 +1,3 @@
+/Users/yulin/CLionProjects/COMP282_ASS1/cmake-build-debug/CMakeFiles/COMP282_ASS1.dir
+/Users/yulin/CLionProjects/COMP282_ASS1/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/yulin/CLionProjects/COMP282_ASS1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
