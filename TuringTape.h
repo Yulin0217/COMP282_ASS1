@@ -3,12 +3,14 @@
 
 #include <iostream>
 #include <vector>
+
 using namespace std;
 
 class TuringTape {
 public:
     TuringTape(int n);
     
+    TuringTape(const TuringTape &turing_ref);
     
     bool moveRight();
     
@@ -21,10 +23,11 @@ public:
     int getPosition();
     
     friend ostream &operator<<(ostream &out, const TuringTape &s);
-    
+
 
 private:
     vector<int> tape;
     vector<int>::iterator current_position;
 };
+
 #endif
