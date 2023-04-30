@@ -77,11 +77,14 @@ void checkTape(TuringTape t) {
 	for (int i=0;i<10;i++) {
 		cout<<t.moveLeft();
 		cout<<t.getContent();
+        //cout<< t.getContent();
 	}
+    cout << endl;
+    cout << t;
 }
 
  void checkFifth() {
-	TuringTape t(10);
+	TuringTape t(13);
 	checkTape(t);
 }
 /*

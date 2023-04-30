@@ -7,7 +7,6 @@
 #include "TuringMachine.h"
 #include <vector>
 
-using namespace std;
 
 class DenseTuringMachine : public TuringMachine {
 public:
@@ -17,15 +16,15 @@ public:
     
     void add(TuringMachineState &s);
     
-    vector<TuringMachineState> *getAll();
+    std::vector<TuringMachineState> *getAll();
 
 private:
     //Store the max value x and y
     int max_x_mvrb, max_y_mvrb;
     //Status Repository
-    vector<TuringMachineState> states_repository;
+    std::vector<TuringMachineState> states_repository;
     //Store the "currentState" and "currentContent"
-    vector<vector<TuringMachineState *>> state_matrix;
+    std::vector<std::vector<TuringMachineState *>> state_matrix;
 };
 
 #endif

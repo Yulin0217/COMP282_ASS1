@@ -4,7 +4,6 @@
 #include <iostream>
 #include <vector>
 
-using namespace std;
 
 class TuringTape {
 public:
@@ -22,12 +21,13 @@ public:
     
     int getPosition();
     
-    friend ostream &operator<<(ostream &out, const TuringTape &s);
+    friend std::ostream &operator<<(std::ostream &out, const TuringTape &s);
 
 
 private:
-    vector<int> tape;
-    vector<int>::iterator current_position;
+    std::vector<int> tape;
+    std::vector<int>::iterator current_position;
+    std::vector<int>:: iterator most_right;
 };
 
 #endif

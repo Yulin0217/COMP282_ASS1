@@ -9,26 +9,33 @@ using namespace std;
 TuringTape::TuringTape(const TuringTape &turing_ref) {
     tape = turing_ref.tape;
     current_position = tape.begin();
+    most_right = tape.begin();
 }
 
 TuringTape::TuringTape(int n) {
     tape.resize(n, 0);
+    current_position = tape.begin();
+    most_right = tape.begin();
 }
 
 bool TuringTape::moveRight() {
-    if (current_position != tape.end()) {
-        current_position++;
-        return true;
+    if (current_position == tape.end()) {
+        return false;
     }
-    return false;
+    current_position++;
+    if (current_position > most_right) {
+        most_right = current_position;
+    }
+    return true;
 }
 
 bool TuringTape::moveLeft() {
-    if (current_position > tape.begin() + 1) {
+    if (current_position <= tape.begin() + 1 || current_position > tape.end()) {
+        return false;
+    } else {
         current_position--;
         return true;
     }
-    return false;
 }
 
 int TuringTape::getContent() {
@@ -48,8 +55,8 @@ int TuringTape::getPosition() {
     return distance(tape.begin(), current_position);
 }
 
-ostream& operator<<(ostream& out,const TuringTape& T) {
-    for (auto i = T.tape.begin(); i != T.tape.end(); i++) {
+ostream &operator<<(ostream &out, const TuringTape &T) {
+    for (auto i = T.tape.begin(); i != T.most_right; i++) {
         out << *i << " ";
     }
     out << endl;
