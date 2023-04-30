@@ -6,9 +6,11 @@
 using namespace std;
 
 TuringTape::TuringTape(int n) {
-    tape.resize(n, 0);
+    tape.resize(n,0);
     current_position = tape.begin();
 }
+
+
 
 bool TuringTape::moveRight() {
     if (current_position != tape.end()) {

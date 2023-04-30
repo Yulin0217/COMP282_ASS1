@@ -68,7 +68,7 @@ void checkTuringMachine(TuringMachine* t) {
 	for (auto s: *t->getAll()) cout << s;
 }
 
-void checkTape(TuringTape &t) {
+void checkTape(TuringTape& t) {
 	cout<<t.moveLeft();
 	for (int i=0;i<10;i++) {
 		cout<<t.moveRight();
