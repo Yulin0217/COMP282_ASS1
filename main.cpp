@@ -67,8 +67,8 @@ void checkTuringMachine(TuringMachine* t) {
 	sort(vec.begin(),vec.end(),compareState);
 	for (auto s: *t->getAll()) cout << s;
 }
-/*
-void checkTape(TuringTape t) {
+
+void checkTape(TuringTape &t) {
 	cout<<t.moveLeft();
 	for (int i=0;i<10;i++) {
 		cout<<t.moveRight();
@@ -80,11 +80,11 @@ void checkTape(TuringTape t) {
 	}
 }
 
-void checkFifth() {
+ void checkFifth() {
 	TuringTape t(10);
 	checkTape(t);
 }
-
+/*
 void checkMenu() {
 	MenuSystem m;
 	m.menu();
@@ -120,8 +120,9 @@ int main() {
         DenseTuringMachine d(10,10);
         checkTuringMachine(&d);
     }
-    /*
+    
     if (task==5) checkFifth();
+    /*
     if (task==6) checkMenu();
     if (task==7) checkSeventh();
     if (task==8) checkEigth();*/

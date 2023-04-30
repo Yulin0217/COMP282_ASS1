@@ -67,6 +67,12 @@ build CMakeFiles/COMP282_ASS1.dir/DenseTuringMachine.cpp.o: CXX_COMPILER__COMP28
   OBJECT_DIR = CMakeFiles/COMP282_ASS1.dir
   OBJECT_FILE_DIR = CMakeFiles/COMP282_ASS1.dir
 
+build CMakeFiles/COMP282_ASS1.dir/TuringTape.cpp.o: CXX_COMPILER__COMP282_ASS1_Debug /Users/yulin/CLionProjects/COMP282_ASS1/TuringTape.cpp || cmake_object_order_depends_target_COMP282_ASS1
+  DEP_FILE = CMakeFiles/COMP282_ASS1.dir/TuringTape.cpp.o.d
+  FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -mmacosx-version-min=13.2 -fcolor-diagnostics -std=gnu++11
+  OBJECT_DIR = CMakeFiles/COMP282_ASS1.dir
+  OBJECT_FILE_DIR = CMakeFiles/COMP282_ASS1.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target COMP282_ASS1
@@ -75,7 +81,7 @@ build CMakeFiles/COMP282_ASS1.dir/DenseTuringMachine.cpp.o: CXX_COMPILER__COMP28
 #############################################
 # Link the executable COMP282_ASS1
 
-build COMP282_ASS1: CXX_EXECUTABLE_LINKER__COMP282_ASS1_Debug CMakeFiles/COMP282_ASS1.dir/main.cpp.o CMakeFiles/COMP282_ASS1.dir/TuringMachineState.cpp.o CMakeFiles/COMP282_ASS1.dir/DenseTuringMachine.cpp.o
+build COMP282_ASS1: CXX_EXECUTABLE_LINKER__COMP282_ASS1_Debug CMakeFiles/COMP282_ASS1.dir/main.cpp.o CMakeFiles/COMP282_ASS1.dir/TuringMachineState.cpp.o CMakeFiles/COMP282_ASS1.dir/DenseTuringMachine.cpp.o CMakeFiles/COMP282_ASS1.dir/TuringTape.cpp.o
   FLAGS = -g -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.3.sdk -mmacosx-version-min=13.2
   OBJECT_DIR = CMakeFiles/COMP282_ASS1.dir
   POST_BUILD = :
