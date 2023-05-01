@@ -20,10 +20,11 @@ TuringTape::TuringTape(int n) {
 }
 
 bool TuringTape::moveRight() {
+    current_position++;
     if (current_position == tape.end()) {
         out_of_bound = true;
         return false;
-    } else { current_position++; }
+    }
     if (current_position > most_right) {
         most_right = current_position;
     }
@@ -32,14 +33,12 @@ bool TuringTape::moveRight() {
 }
 
 bool TuringTape::moveLeft() {
-    if (current_position <= tape.begin() + 1 || current_position > tape.end()) {
+    current_position--;
+    if (current_position < tape.begin() || current_position > tape.end()) {
         out_of_bound = true;
         return false;
-    } else {
-        out_of_bound = false;
-        current_position--;
-        return true;
     }
+    return true;
 }
 
 int TuringTape::getContent() {
@@ -62,7 +61,7 @@ int TuringTape::getPosition() {
 }
 
 ostream &operator<<(ostream &out, const TuringTape &T) {
-    for (auto i = T.tape.begin(); i != T.most_right; i++) {
+    for (auto i = T.tape.begin(); i != T.most_right+1; i++) {
         out << *i;
     }
     return out;

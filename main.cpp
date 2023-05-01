@@ -80,7 +80,6 @@ void checkTape(TuringTape t) {
         //cout<< t.getContent();
 	}
     cout << endl;
-    cout << t;
 }
 
  void checkFifth() {
@@ -129,6 +128,10 @@ int main() {
     if (task==6) checkMenu();
 //    if (task==7) checkSeventh();
 //    if (task==8) checkEigth();
+    if (task==10){
+        TuringTape t(13);
+        cout<<t.getPosition();
+    }
     cin >> task;
     
 }
