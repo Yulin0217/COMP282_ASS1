@@ -38,7 +38,7 @@ void MenuSystem::menu() {
         cin >> choice;
         
         if (choice == 'q' || choice == 'Q') {
-            return;
+            exit(0);
         }
         
         switch (choice) {
@@ -56,7 +56,6 @@ void MenuSystem::menu() {
                 s = TuringMachineState(current_state_add, current_content_add, next_state_add, next_content_add,move_direction);
                 dense.add(s);
                 dense_ptr = &dense;
-                show(dense_ptr);
                 break;
             case '4':
                 break;
@@ -75,11 +74,8 @@ void MenuSystem::menu() {
                 show(dense_ptr);
                 cout << endl;
                 break;
-            default:
-                cout << "Invalid option." << endl;
         }
     }
-    
     
 }
 
@@ -88,9 +84,3 @@ void MenuSystem::show(TuringMachine *t) {
     for (auto s: *t->getAll()) cout << "<" << s << ">";
 }
 
-TuringMachineState&
-MenuSystem::build(int current_state_add, int current_content_add, int next_state_add, int next_content_add,
-                  string move_direction) {
-    TuringMachineState s(current_state_add, current_content_add, next_state_add, next_content_add, move_direction);
-    return s;;
-}
