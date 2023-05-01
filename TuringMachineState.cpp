@@ -72,3 +72,4 @@ bool TuringMachineState::operator<(const TuringMachineState &state) const {
 bool TuringMachineState::operator==(const TuringMachineState &state) const {
     return currentState_mvar == state.currentState_mvar && currentContent_mvar == state.currentContent_mvar;
 }
+

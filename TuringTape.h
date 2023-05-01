@@ -27,6 +27,7 @@ public:
 private:
     std::vector<int> tape;
     std::vector<int>::iterator current_position;
+    //Create an iterator to indicate the current rightmost content position
     std::vector<int>:: iterator most_right;
 };
 

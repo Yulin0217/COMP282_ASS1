@@ -5,7 +5,7 @@
 #include "TuringTape.h"
 
 using namespace std;
-
+//Create indexed copy constructors for deep copy to prevent iterator dangling pointer
 TuringTape::TuringTape(const TuringTape &turing_ref) {
     tape = turing_ref.tape;
     current_position = tape.begin();
@@ -50,7 +50,8 @@ void TuringTape::setContent(int c) {
         *current_position = c;
     }
 }
-
+//Use the distance function to calculate the distance
+// between the start and the current position of the iterator to get the position
 int TuringTape::getPosition() {
     return distance(tape.begin(), current_position);
 }

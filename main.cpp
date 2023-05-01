@@ -87,14 +87,14 @@ void checkTape(TuringTape t) {
 	TuringTape t(13);
 	checkTape(t);
 }
-/*
+
 void checkMenu() {
 	MenuSystem m;
 	m.menu();
 }
 
 
-void checkSeventh() {
+/*void checkSeventh() {
 	SparseTuringMachine s;
 	checkTuringMachine(&s);
 	checkMenu();
@@ -108,8 +108,8 @@ void checkEigth() {
 	checkTuringMachine(&d);
 
 	checkMenu();
-}
-*/
+}*/
+
 
 
 int main() {
@@ -125,10 +125,10 @@ int main() {
     }
     
     if (task==5) checkFifth();
-    /*
+    
     if (task==6) checkMenu();
-    if (task==7) checkSeventh();
-    if (task==8) checkEigth();*/
+//    if (task==7) checkSeventh();
+//    if (task==8) checkEigth();
     cin >> task;
     
 }

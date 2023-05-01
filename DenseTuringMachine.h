@@ -16,7 +16,8 @@ public:
     
     void add(TuringMachineState &s);
     
-    std::vector<TuringMachineState> *getAll();
+    std::vector<TuringMachineState>* getAll();
+    
 
 private:
     //Store the max value x and y
