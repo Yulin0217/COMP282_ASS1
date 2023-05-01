@@ -5,6 +5,7 @@
 #include "TuringTape.h"
 
 using namespace std;
+
 //Create indexed copy constructors for deep copy to prevent iterator dangling pointer
 TuringTape::TuringTape(const TuringTape &turing_ref) {
     tape = turing_ref.tape;
@@ -20,19 +21,22 @@ TuringTape::TuringTape(int n) {
 
 bool TuringTape::moveRight() {
     if (current_position == tape.end()) {
+        out_of_bound = true;
         return false;
-    }
-    current_position++;
+    } else { current_position++; }
     if (current_position > most_right) {
         most_right = current_position;
     }
+    out_of_bound = false;
     return true;
 }
 
 bool TuringTape::moveLeft() {
     if (current_position <= tape.begin() + 1 || current_position > tape.end()) {
+        out_of_bound = true;
         return false;
     } else {
+        out_of_bound = false;
         current_position--;
         return true;
     }
@@ -50,6 +54,7 @@ void TuringTape::setContent(int c) {
         *current_position = c;
     }
 }
+
 //Use the distance function to calculate the distance
 // between the start and the current position of the iterator to get the position
 int TuringTape::getPosition() {
@@ -58,11 +63,12 @@ int TuringTape::getPosition() {
 
 ostream &operator<<(ostream &out, const TuringTape &T) {
     for (auto i = T.tape.begin(); i != T.most_right; i++) {
-        out << *i << " ";
+        out << *i;
     }
-    out << endl;
     return out;
 }
 
-
+bool TuringTape::check_out_of_bound() {
+    return out_of_bound;
+}
 

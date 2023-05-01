@@ -22,7 +22,8 @@ public:
     int getPosition();
     
     friend std::ostream &operator<<(std::ostream &out, const TuringTape &s);
-
+    bool out_of_bound;
+    bool check_out_of_bound();
 
 private:
     std::vector<int> tape;
