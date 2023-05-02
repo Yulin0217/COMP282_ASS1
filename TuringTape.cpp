@@ -24,6 +24,7 @@ bool TuringTape::moveRight() {
     if (current_position == tape.end()) {
         return false;
     }
+    //Update most_right iterator
     if (current_position > most_right) {
         most_right = current_position;
     }

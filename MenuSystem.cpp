@@ -79,9 +79,9 @@ void MenuSystem::menu() {
                     turing_content.insert(states.getNextContent());
                 }
                 int state_size;
-                state_size = turing_state.size() - 1;
+                state_size = turing_state.size();
                 int content_size;
-                content_size = turing_content.size() - 1;
+                content_size = turing_content.size();
                 //Redirecting the pointer to point to a DenseTuringMachine.
                 turing_ptr = new DenseTuringMachine(state_size, content_size);
                 //Add all new TuringMachineState to Densetuirngmachine
@@ -150,6 +150,7 @@ void MenuSystem::menu() {
     
 }
 
+//Function to show all turingmachine
 void MenuSystem::show(TuringMachine *t) {
     vector<TuringMachineState> vec = *t->getAll();
     for (auto s: *t->getAll()) cout << "<" << s << ">";
