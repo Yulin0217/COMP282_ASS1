@@ -3,6 +3,7 @@
 #include "TuringMachineState.h"
 #include "TuringMachine.h"
 #include "SparseTuringMachine.h"
+#include "vector"
 class MenuSystem {
 public:
 	void menu();
