@@ -14,7 +14,7 @@ TuringMachineState* SparseTuringMachine::find(int x, int y) {
         int mid = left + (right - left) / 2;
         if (states[mid].getCurrentState() == x && states[mid].getCurrentContent() == y) {
             return &states[mid];
-        } else if (states[mid].getCurrentState() <= x && states[mid].getCurrentContent() < y)) {
+        } else if (states[mid].getCurrentState() <= x && states[mid].getCurrentContent() < y) {
             left = mid + 1;
         } else {
             right = mid - 1;

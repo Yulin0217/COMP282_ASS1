@@ -86,13 +86,13 @@ void MenuSystem::menu() {
                 turing_ptr = new DenseTuringMachine(state_size, content_size);
                 //Add all new TuringMachineState to Densetuirngmachine
                 for (TuringMachineState &states: *all_state) {
-                    int new_curent_state = distance(turing_state.begin(), turing_state.find(states.getCurrentState()));
+                    int new_current_state = distance(turing_state.begin(), turing_state.find(states.getCurrentState()));
                     int new_next_state = distance(turing_state.begin(), turing_state.find(states.getNextState()));
                     int new_current_content = distance(turing_content.begin(),
                                                        turing_content.find(states.getCurrentContent()));
                     int new_next_content = distance(turing_content.begin(),
                                                     turing_content.find(states.getNextContent()));
-                    new_state_for_sparse = TuringMachineState(new_curent_state, new_current_content, new_next_state,
+                    new_state_for_sparse = TuringMachineState(new_current_state, new_current_content, new_next_state,
                                                               new_next_content, states.getMoveDirection());
                     turing_ptr->add(new_state_for_sparse);
                 }
