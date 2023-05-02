@@ -26,6 +26,7 @@ TuringMachineState* SparseTuringMachine::find(int x, int y) {
 void SparseTuringMachine::add(TuringMachineState &s)  {
     //Insert the new TuringMachineState into the ordered vector to prepare for binary search
     //lower_bound function has a time complexity of O(log n)
+    //The < operator is already overload (in Class TuringMachineState), which could help sorts based on the current state and current content of each state.
     states.insert(lower_bound(states.begin(), states.end(), s), s);
 }
 
