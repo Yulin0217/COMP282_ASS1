@@ -104,6 +104,36 @@ void MenuSystem::menu() {
                 cin >> step;
                 // Add the number of steps to the total number of steps taken so far
                 step_sum = step + step_sum;
+                if (step == -1) {
+                    while (true) {
+                        // Check if the tape head is outside the bounds of the tape
+                        if (tape.getPosition() < 0 || tape.getPosition() >= tape_size) {
+                            cout << "In step " << step_sum + step << ", the position is " << tape.getPosition()
+                                 << ", but that is outside the tape." << endl;
+                            break;
+                        } else {
+                            // Find the current Turing machine state based on the current state and content of the tape
+                            current_turing_ptr = turing_ptr->find(current_state, tape.getContent());
+                            // If a matching state is found, update the tape content, move the tape head, and update the current state
+                            if (current_turing_ptr != nullptr) {
+                                tape.setContent(current_turing_ptr->getNextContent());
+                                if (current_turing_ptr->getMoveDirection() == "->") {
+                                    tape.moveRight();
+                                } else if (current_turing_ptr->getMoveDirection() == "<-") {
+                                    tape.moveLeft();
+                                }
+                                current_state = current_turing_ptr->getNextState();
+                                // If no matching state is found, print an error message and exit the loop
+                            } else {
+                                cout << "In step " << step_sum + step << " there is no Turing machine state with state "
+                                     << current_state << " and content " << tape.getContent()
+                                     << endl;
+                                break;
+                            }
+                        }
+                        step++;
+                    }
+                }
                 for (i = 1; i <= step; i++) {
                     // Check if the tape head is outside the bounds of the tape
                     if (tape.getPosition() < 0 || tape.getPosition() >= tape_size) {

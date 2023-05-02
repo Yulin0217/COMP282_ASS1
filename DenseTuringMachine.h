@@ -26,6 +26,9 @@ private:
     std::vector<TuringMachineState> states_repository;
     //Store the "currentState" and "currentContent"
     std::vector<std::vector<TuringMachineState *>> state_matrix;
+    bool  infinite_mode = false;
+    int biggest_state = 0;
+    int biggest_content = 0;
 };
 
 #endif

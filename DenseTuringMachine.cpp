@@ -7,13 +7,21 @@
 using namespace std;
 
 DenseTuringMachine::DenseTuringMachine(int x, int y) : max_x_mvrb(x), max_y_mvrb(y) {
-    //Resize the vector to (x+1)*(y+1),
-    // which can store every possible state and content (as pointers) of the turing machine(In the state/content range max_x and max_y),
-    // contents are all NULL at first.
-    state_matrix.resize(x + 1);
-    for (int i = 0; i <= x; i++) {
-        state_matrix[i].resize(y + 1, nullptr);
+    if (x == -1 || y == -1) {
+        infinite_mode = true;
+        state_matrix.resize(1);
+        for (int i = 0; i <= x; i++) {
+            state_matrix[i].resize(1, nullptr);
+        }
+    } else {//Resize the vector to (x+1)*(y+1),
+        // which can store every possible state and content (as pointers) of the turing machine(In the state/content range max_x and max_y),
+        // contents are all NULL at first.
+        state_matrix.resize(x + 1);
+        for (int i = 0; i <= x; i++) {
+            state_matrix[i].resize(y + 1, nullptr);
+        }
     }
+    
 }
 
 TuringMachineState *DenseTuringMachine::find(int x, int y) {
@@ -36,19 +44,46 @@ TuringMachineState *DenseTuringMachine::find(int x, int y) {
 void DenseTuringMachine::add(TuringMachineState &s) {
     int current_state = s.getCurrentState();
     int current_content = s.getCurrentContent();
-    //Check for out of range, if so terminate
-    if (current_state > max_x_mvrb || current_content > max_y_mvrb) {
-        return;
+    if (current_state >= biggest_state) {
+        biggest_state = current_state;
     }
-    //Check whether already exist or not
-    TuringMachineState *exist_state_pointer = find(current_state, current_content);
-    if (exist_state_pointer != nullptr) {
-        *exist_state_pointer = s;
-    } else {
-        TuringMachineState *new_state_pointer = new TuringMachineState(s);
-        state_matrix[current_state][current_content] = new_state_pointer;
-        states_repository.push_back(s);
+    if (current_content >= biggest_content) {
+        biggest_content = current_content;
     }
+    if (infinite_mode) {
+        if (current_content >= biggest_content || current_state >= biggest_state) {
+            DenseTuringMachine new_dense = DenseTuringMachine(biggest_state, biggest_content);
+            for (auto &state: states_repository) {
+                new_dense.state_matrix[state.getCurrentState()][state.getCurrentContent()] = &state;
+            }
+            TuringMachineState *exist_state_pointer = find(current_state, current_content);
+            if (exist_state_pointer != nullptr) {
+                *exist_state_pointer = s;
+            } else {
+                TuringMachineState *new_state_pointer = new TuringMachineState(s);
+                new_dense.state_matrix[current_state][current_content] = new_state_pointer;
+                new_dense.states_repository.push_back(s);
+                state_matrix = new_dense.state_matrix;
+                states_repository = new_dense.states_repository;
+            }
+        }
+        
+        
+    } else {//Check for out of range, if so terminate
+        if (current_state > max_x_mvrb || current_content > max_y_mvrb) {
+            return;
+        }
+        //Check whether already exist or not
+        TuringMachineState *exist_state_pointer = find(current_state, current_content);
+        if (exist_state_pointer != nullptr) {
+            *exist_state_pointer = s;
+        } else {
+            TuringMachineState *new_state_pointer = new TuringMachineState(s);
+            state_matrix[current_state][current_content] = new_state_pointer;
+            states_repository.push_back(s);
+        }
+    }
+    
 }
 
 vector<TuringMachineState> *DenseTuringMachine::getAll() {

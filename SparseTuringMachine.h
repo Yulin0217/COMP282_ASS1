@@ -9,6 +9,7 @@ public:
 	std::vector<TuringMachineState>* getAll();
 private:
     std::vector<TuringMachineState> states;
+    std::vector<TuringMachineState> states_binary;
 };
 
 #endif /* SPARSETURINGMACHINE_H_ */

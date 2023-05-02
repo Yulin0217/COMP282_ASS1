@@ -8,32 +8,56 @@ using namespace std;
 
 //Create indexed copy constructors for deep copy to prevent iterator dangling pointer
 TuringTape::TuringTape(const TuringTape &turing_ref) {
-    tape = turing_ref.tape;
-    current_position = tape.begin();
-    most_right = tape.begin();
+    n_m = turing_ref.n_m;
+    if (n_m == -1) {
+        infinite_mode = true;
+        tape = turing_ref.tape;
+        tape.resize(1, 0);
+        current_position = tape.begin();
+        most_right = tape.begin();
+    } else {
+        tape = turing_ref.tape;
+        current_position = tape.begin();
+        most_right = tape.begin();
+    }
 }
 
 TuringTape::TuringTape(int n) {
-    tape.resize(n, 0);
-    current_position = tape.begin();
-    most_right = tape.begin();
+    if (n == -1) {
+        n_m = n;
+        infinite_mode = true;
+        tape.resize(1, 0);
+    } else {
+        n_m = n;
+        tape.resize(n, 0);
+        current_position = tape.begin();
+        most_right = tape.begin();
+    }
+    
 }
 
 bool TuringTape::moveRight() {
     current_position++;
-    if (current_position == tape.end()) {
-        return false;
+    if (!infinite_mode) {
+        if (current_position == tape.end()) {
+            return false;
+        }
     }
     //Update most_right iterator
-    if (current_position > most_right) {
+    if (current_position >= most_right) {
         most_right = current_position;
+        if (infinite_mode) {
+            tape.push_back(0);
+            current_position = tape.end()-2;
+            most_right= tape.end()-2;
+        }
     }
     return true;
 }
 
 bool TuringTape::moveLeft() {
     current_position--;
-    if (current_position < tape.begin() || current_position > tape.end()) {
+    if (current_position < tape.begin()) {
         return false;
     }
     return true;
@@ -59,7 +83,7 @@ int TuringTape::getPosition() {
 }
 
 ostream &operator<<(ostream &out, const TuringTape &T) {
-    for (auto i = T.tape.begin(); i != T.most_right+1; i++) {
+    for (auto i = T.tape.begin(); i != T.most_right + 1; i++) {
         out << *i;
     }
     return out;
