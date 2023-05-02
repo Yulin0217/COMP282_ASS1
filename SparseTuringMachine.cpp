@@ -7,15 +7,14 @@
 
 using namespace std;
 
-TuringMachineState *SparseTuringMachine::find(int x, int y) {
+TuringMachineState* SparseTuringMachine::find(int x, int y) {
     //Binary search, and time complexity of binary search is O(log n)
     int left = 0, right = states.size() - 1;
     while (left <= right) {
         int mid = left + (right - left) / 2;
         if (states[mid].getCurrentState() == x && states[mid].getCurrentContent() == y) {
             return &states[mid];
-        } else if (states[mid].getCurrentState() < x && states[mid].getCurrentContent() < y ||
-                   (states[mid].getCurrentState() == x)) {
+        } else if (states[mid].getCurrentState() < x || (states[mid].getCurrentState() == x && states[mid].getCurrentContent() < y)) {
             left = mid + 1;
         } else {
             right = mid - 1;
@@ -24,12 +23,12 @@ TuringMachineState *SparseTuringMachine::find(int x, int y) {
     return nullptr;
 }
 
-void SparseTuringMachine::add(TuringMachineState &s) {
+void SparseTuringMachine::add(TuringMachineState &s)  {
     //Insert the new TuringMachineState into the ordered vector to prepare for binary search
     //lower_bound function has a time complexity of O(log n)
     states.insert(lower_bound(states.begin(), states.end(), s), s);
 }
 
-vector<TuringMachineState> *SparseTuringMachine::getAll() {
+vector<TuringMachineState>* SparseTuringMachine::getAll() {
     return &states;
 }
