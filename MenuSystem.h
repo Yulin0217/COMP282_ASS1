@@ -2,6 +2,7 @@
 #define MENUSYSTEM_H_
 #include "TuringMachineState.h"
 #include "TuringMachine.h"
+#include "SparseTuringMachine.h"
 class MenuSystem {
 public:
 	void menu();

@@ -9,7 +9,7 @@
 #include "TuringTape.h"
 #include "MenuSystem.h"
 #include <string>
-
+#include "SparseTuringMachine.h"
 using namespace std;
 
 void MenuSystem::menu() {
@@ -50,6 +50,7 @@ void MenuSystem::menu() {
                 turing_ptr = new DenseTuringMachine(max_x, max_y);;
                 break;
             case '2':
+                turing_ptr = new SparseTuringMachine;
                 break;
             case '3':
                 cout << "What state do you wish to add?" << endl;

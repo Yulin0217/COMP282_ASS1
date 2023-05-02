@@ -80,6 +80,7 @@ void checkTape(TuringTape t) {
         //cout<< t.getContent();
 	}
     cout << endl;
+    cout<<t;
 }
 
  void checkFifth() {
@@ -93,12 +94,12 @@ void checkMenu() {
 }
 
 
-/*void checkSeventh() {
+void checkSeventh() {
 	SparseTuringMachine s;
 	checkTuringMachine(&s);
-	checkMenu();
+	//checkMenu();
 }
-
+/*
 void checkEigth() {
 	TuringTape t(-1);
 	checkTape(t);
@@ -126,7 +127,7 @@ int main() {
     if (task==5) checkFifth();
     
     if (task==6) checkMenu();
-//    if (task==7) checkSeventh();
+    if (task==7) checkSeventh();
 //    if (task==8) checkEigth();
     if (task==10){
         TuringTape t(13);

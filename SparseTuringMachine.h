@@ -7,6 +7,8 @@ public:
 	TuringMachineState* find(int x,int y);
 	void add(TuringMachineState& s);
 	std::vector<TuringMachineState>* getAll();
+private:
+    std::vector<TuringMachineState> states;
 };
 
 #endif /* SPARSETURINGMACHINE_H_ */

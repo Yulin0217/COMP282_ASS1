@@ -22,20 +22,17 @@ TuringTape::TuringTape(int n) {
 bool TuringTape::moveRight() {
     current_position++;
     if (current_position == tape.end()) {
-        out_of_bound = true;
         return false;
     }
     if (current_position > most_right) {
         most_right = current_position;
     }
-    out_of_bound = false;
     return true;
 }
 
 bool TuringTape::moveLeft() {
     current_position--;
     if (current_position < tape.begin() || current_position > tape.end()) {
-        out_of_bound = true;
         return false;
     }
     return true;
@@ -67,7 +64,4 @@ ostream &operator<<(ostream &out, const TuringTape &T) {
     return out;
 }
 
-bool TuringTape::check_out_of_bound() {
-    return out_of_bound;
-}
 
