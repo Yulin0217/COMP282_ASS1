@@ -14,7 +14,7 @@ private:
     int current_state;
     int max_x;
     int max_y;
-    TuringMachine *turing_ptr;
+    TuringMachine *turing_ptr = nullptr;
 };
 
 #endif /* MENUSYSTEM_H_ */

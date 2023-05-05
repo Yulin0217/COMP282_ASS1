@@ -14,8 +14,15 @@
 using namespace std;
 
 void MenuSystem::menu() {
-    std::cout << "How long should the tape be?" << std::endl;
-    std::cin >> tape_size;
+    cout << "How long should the tape be?" << endl;
+    while (true) {
+        cin >> tape_size;
+        if (tape_size == -1 || tape_size > -1) {
+            break;
+        } else {
+            cout << "Enter Option"<<endl;
+        }
+    }
     
     //Creat initial turing machine
     TuringTape tape(tape_size);
@@ -24,7 +31,7 @@ void MenuSystem::menu() {
     //Prepare for add TuringMachineState in case4
     TuringMachineState new_state_for_sparse(0, 0, 0, 0, "->");
     //Initialize variable
-    int step_sum = 0;
+    int step_sum = 1;
     current_turing_ptr = nullptr;
     current_state = 0;
     string move_direction;
@@ -62,53 +69,76 @@ void MenuSystem::menu() {
                 turing_ptr = new SparseTuringMachine;
                 break;
             case '3':
-                cout << "What state do you wish to add?" << endl;
-                int current_state_add, current_content_add, next_state_add, next_content_add;
-                cin >> current_state_add >> current_content_add >> next_state_add >> next_content_add >> move_direction;
-                s = TuringMachineState(current_state_add, current_content_add, next_state_add, next_content_add,
-                                       move_direction);
-                turing_ptr->add(s);
+                if (turing_ptr == nullptr) {
+                    cout << "Enter Option"<<endl;
+                } else {
+                    cout << "What state do you wish to add?" << endl;
+                    int current_state_add, current_content_add, next_state_add, next_content_add;
+                    cin >> current_state_add >> current_content_add >> next_state_add >> next_content_add
+                        >> move_direction;
+                    s = TuringMachineState(current_state_add, current_content_add, next_state_add, next_content_add,
+                                           move_direction);
+                    turing_ptr->add(s);
+                    break;
+                }
                 break;
             case '4':
-                all_state = turing_ptr->getAll();
-                //Put all states(current and next) and all content(current and next) into state and content container.
-                for (TuringMachineState &states: *all_state) {
-                    turing_state.insert(states.getCurrentState());
-                    turing_state.insert(states.getNextState());
-                    turing_content.insert(states.getCurrentContent());
-                    turing_content.insert(states.getNextContent());
-                }
-                int state_size;
-                state_size = turing_state.size();
-                int content_size;
-                content_size = turing_content.size();
-                //Redirecting the pointer to point to a DenseTuringMachine.
-                turing_ptr = new DenseTuringMachine(state_size, content_size);
-                //Add all new TuringMachineState to Densetuirngmachine
-                for (TuringMachineState &states: *all_state) {
-                    int new_current_state = distance(turing_state.begin(), turing_state.find(states.getCurrentState()));
-                    int new_next_state = distance(turing_state.begin(), turing_state.find(states.getNextState()));
-                    int new_current_content = distance(turing_content.begin(),
-                                                       turing_content.find(states.getCurrentContent()));
-                    int new_next_content = distance(turing_content.begin(),
-                                                    turing_content.find(states.getNextContent()));
-                    new_state_for_sparse = TuringMachineState(new_current_state, new_current_content, new_next_state,
-                                                              new_next_content, states.getMoveDirection());
-                    turing_ptr->add(new_state_for_sparse);
+                if (turing_ptr == nullptr) {
+                    cout << "Enter Option"<<endl;
+                } else {
+                    all_state = turing_ptr->getAll();
+                    //Put all states(current and next) and all content(current and next) into state and content container.
+                    for (TuringMachineState &states: *all_state) {
+                        turing_state.insert(states.getCurrentState());
+                        turing_state.insert(states.getNextState());
+                        turing_content.insert(states.getCurrentContent());
+                        turing_content.insert(states.getNextContent());
+                    }
+                    int state_size;
+                    state_size = turing_state.size();
+                    int content_size;
+                    content_size = turing_content.size();
+                    //Redirecting the pointer to point to a DenseTuringMachine.
+                    turing_ptr = new DenseTuringMachine(state_size, content_size);
+                    //Add all new TuringMachineState to Densetuirngmachine
+                    for (TuringMachineState &states: *all_state) {
+                        int new_current_state = distance(turing_state.begin(),
+                                                         turing_state.find(states.getCurrentState()));
+                        int new_next_state = distance(turing_state.begin(), turing_state.find(states.getNextState()));
+                        int new_current_content = distance(turing_content.begin(),
+                                                           turing_content.find(states.getCurrentContent()));
+                        int new_next_content = distance(turing_content.begin(),
+                                                        turing_content.find(states.getNextContent()));
+                        new_state_for_sparse = TuringMachineState(new_current_state, new_current_content,
+                                                                  new_next_state,
+                                                                  new_next_content, states.getMoveDirection());
+                        turing_ptr->add(new_state_for_sparse);
+                    }
+                    break;
                 }
                 break;
+            
             case '5':
                 cout << "How many steps do you wish to execute?" << endl;
-                int step;
-                step = 0;
-                cin >> step;
+                 int step;
+                while (true) {
+                    cin >> step;
+                    if (step >= -1)
+                        break;
+                    else {
+                        cout << "Enter Option"<<endl;
+                    }
+                }
+                if(turing_ptr == nullptr){
+                    cout << "Enter Option"<<endl;
+                    break;
+                }
                 // Add the number of steps to the total number of steps taken so far
-                step_sum = step + step_sum;
                 if (step == -1) {
                     while (true) {
                         // Check if the tape head is outside the bounds of the tape
-                        if (tape.getPosition() < 0 || tape.getPosition() >= tape_size) {
-                            cout << "In step " << step_sum + step << ", the position is " << tape.getPosition()
+                        if (tape.getPosition() < 0) {
+                            cout << "In step " << step_sum << ", the position is " << tape.getPosition()
                                  << ", but that is outside the tape." << endl;
                             break;
                         } else {
@@ -125,41 +155,44 @@ void MenuSystem::menu() {
                                 current_state = current_turing_ptr->getNextState();
                                 // If no matching state is found, print an error message and exit the loop
                             } else {
-                                cout << "In step " << step_sum + step << " there is no Turing machine state with state "
+                                cout << "In step " << step_sum << " there is no Turing machine state with state "
                                      << current_state << " and content " << tape.getContent()
                                      << endl;
                                 break;
                             }
                         }
-                        step++;
+                        step_sum++;
                     }
-                }
-                for (i = 1; i <= step; i++) {
-                    // Check if the tape head is outside the bounds of the tape
-                    if (tape.getPosition() < 0 || tape.getPosition() >= tape_size) {
-                        cout << "In step " << step_sum << ", the position is " << tape.getPosition()
-                             << ", but that is outside the tape." << endl;
-                        break;
-                    } else {
-                        // Find the current Turing machine state based on the current state and content of the tape
-                        current_turing_ptr = turing_ptr->find(current_state, tape.getContent());
-                        // If a matching state is found, update the tape content, move the tape head, and update the current state
-                        if (current_turing_ptr != nullptr) {
-                            tape.setContent(current_turing_ptr->getNextContent());
-                            if (current_turing_ptr->getMoveDirection() == "->") {
-                                tape.moveRight();
-                            } else if (current_turing_ptr->getMoveDirection() == "<-") {
-                                tape.moveLeft();
-                            }
-                            current_state = current_turing_ptr->getNextState();
-                            // If no matching state is found, print an error message and exit the loop
-                        } else {
-                            cout << "In step " << step_sum << " there is no Turing machine state with state "
-                                 << current_state << " and content " << tape.getContent()
-                                 << endl;
+                } else {
+                    for (i = 1; i <= step; i++) {
+                        // Check if the tape head is outside the bounds of the tape
+                        if (tape.getPosition() < 0 || tape.getPosition() >= tape.tape_size) {
+                            cout << "In step " << step_sum << ", the position is " << tape.getPosition()
+                                 << ", but that is outside the tape." << endl;
                             break;
+                        } else {
+                            // Find the current Turing machine state based on the current state and content of the tape
+                            current_turing_ptr = turing_ptr->find(current_state, tape.getContent());
+                            // If a matching state is found, update the tape content, move the tape head, and update the current state
+                            if (current_turing_ptr != nullptr) {
+                                tape.setContent(current_turing_ptr->getNextContent());
+                                if (current_turing_ptr->getMoveDirection() == "->") {
+                                    tape.moveRight();
+                                } else if (current_turing_ptr->getMoveDirection() == "<-") {
+                                    tape.moveLeft();
+                                }
+                                current_state = current_turing_ptr->getNextState();
+                                // If no matching state is found, print an error message and exit the loop
+                            } else {
+                                cout << "In step " << step_sum << " there is no Turing machine state with state "
+                                     << current_state << " and content " << tape.getContent()
+                                     << endl;
+                                break;
+                            }
                         }
+                        step_sum++;
                     }
+                    
                 }
                 break;
             case '6':
@@ -174,6 +207,7 @@ void MenuSystem::menu() {
                 cout << endl;
                 break;
             default:
+                cout << "Enter Option";
                 break;
         }
     }

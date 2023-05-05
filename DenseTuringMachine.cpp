@@ -10,9 +10,7 @@ DenseTuringMachine::DenseTuringMachine(int x, int y) : max_x_mvrb(x), max_y_mvrb
     if (x == -1 || y == -1) {
         infinite_mode = true;
         state_matrix.resize(1);
-        for (int i = 0; i <= x; i++) {
-            state_matrix[i].resize(1, nullptr);
-        }
+        state_matrix[0].resize(1, nullptr);
     } else {//Resize the vector to (x+1)*(y+1),
         // which can store every possible state and content (as pointers) of the turing machine(In the state/content range max_x and max_y),
         // contents are all NULL at first.
@@ -53,22 +51,16 @@ void DenseTuringMachine::add(TuringMachineState &s) {
     if (infinite_mode) {
         if (current_content >= biggest_content || current_state >= biggest_state) {
             DenseTuringMachine new_dense = DenseTuringMachine(biggest_state, biggest_content);
+            state_matrix = new_dense.state_matrix;
+            states_repository.push_back(s);
             for (auto &state: states_repository) {
-                new_dense.state_matrix[state.getCurrentState()][state.getCurrentContent()] = &state;
+                state_matrix[state.getCurrentState()][state.getCurrentContent()] = &state;
             }
-            TuringMachineState *exist_state_pointer = find(current_state, current_content);
-            if (exist_state_pointer != nullptr) {
-                *exist_state_pointer = s;
-            } else {
-                TuringMachineState *new_state_pointer = new TuringMachineState(s);
-                new_dense.state_matrix[current_state][current_content] = new_state_pointer;
-                new_dense.states_repository.push_back(s);
-                state_matrix = new_dense.state_matrix;
-                states_repository = new_dense.states_repository;
-            }
+            TuringMachineState *new_state_pointer = new TuringMachineState(s);
+            state_matrix[current_state][current_content] = new_state_pointer;
         }
-        
-        
+        max_x_mvrb = biggest_state;
+        max_y_mvrb =biggest_content;
     } else {//Check for out of range, if so terminate
         if (current_state > max_x_mvrb || current_content > max_y_mvrb) {
             return;

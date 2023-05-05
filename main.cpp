@@ -81,6 +81,7 @@ void checkTape(TuringTape t) {
         //cout<< t.getContent();
     }
     cout << endl;
+    cout << t;
 }
 
 void checkFifth() {
@@ -103,6 +104,7 @@ void checkSeventh() {
 void checkEigth() {
     TuringTape t(-1);
     checkTape(t);
+    
     
     DenseTuringMachine d(-1, -1);
     checkTuringMachine(&d);

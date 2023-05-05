@@ -22,7 +22,7 @@ public:
     int getPosition();
     
     friend std::ostream &operator<<(std::ostream &out, const TuringTape &s);
-
+    int tape_size;
 private:
     int n_m;
     std::vector<int> tape;
@@ -30,6 +30,7 @@ private:
     //Create an iterator to indicate the current rightmost content position
     std::vector<int>:: iterator most_right;
     bool infinite_mode = false;
+    
 };
 
 #endif

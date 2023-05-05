@@ -13,12 +13,14 @@ TuringTape::TuringTape(const TuringTape &turing_ref) {
         infinite_mode = true;
         tape = turing_ref.tape;
         tape.resize(1, 0);
+        tape_size = 1;
         current_position = tape.begin();
         most_right = tape.begin();
     } else {
         tape = turing_ref.tape;
         current_position = tape.begin();
         most_right = tape.begin();
+        tape_size = n_m;
     }
 }
 
@@ -27,9 +29,13 @@ TuringTape::TuringTape(int n) {
         n_m = n;
         infinite_mode = true;
         tape.resize(1, 0);
+        tape_size = 1;
+        current_position = tape.begin();
+        most_right = tape.begin();
     } else {
         n_m = n;
         tape.resize(n, 0);
+        tape_size = n;
         current_position = tape.begin();
         most_right = tape.begin();
     }
@@ -37,21 +43,24 @@ TuringTape::TuringTape(int n) {
 }
 
 bool TuringTape::moveRight() {
-    current_position++;
-    if (!infinite_mode) {
+    if (infinite_mode) {
+        if (current_position >= most_right) {
+            tape.push_back(0);
+            tape_size++;
+            current_position = prev(tape.end());
+            most_right = current_position;
+        } else{current_position++;}
+    } else {
+        current_position++;
+        if (current_position >= most_right) {
+            most_right = current_position;
+        }
         if (current_position == tape.end()) {
             return false;
         }
     }
+    
     //Update most_right iterator
-    if (current_position >= most_right) {
-        most_right = current_position;
-        if (infinite_mode) {
-            tape.push_back(0);
-            current_position = tape.end()-2;
-            most_right= tape.end()-2;
-        }
-    }
     return true;
 }
 
@@ -59,6 +68,11 @@ bool TuringTape::moveLeft() {
     current_position--;
     if (current_position < tape.begin()) {
         return false;
+    }
+    if (infinite_mode) {
+        if (current_position == tape.begin() - 2) {
+            return true;
+        }
     }
     return true;
 }
